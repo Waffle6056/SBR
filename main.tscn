@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bia6s0mgd8qfu"]
+
+[ext_resource type="PackedScene" uid="uid://cqhfyjlhwf53y" path="res://snowball.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bh0q11lqqp26" path="res://camera.gd" id="2_h2yge"]
+
+[node name="Main" type="Node" unique_id=1452200981]
+
+[node name="Snowball" parent="." unique_id=2096384661 instance=ExtResource("1_0xm2m")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=461578943 node_paths=PackedStringArray("target")]
+script = ExtResource("2_h2yge")
+target = NodePath("../Snowball")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=185642595]

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bvx388p8ofdsk"]
+
+[node name="environment" type="Node2D" unique_id=932433187]
+
+[node name="Control" type="Control" parent="." unique_id=1053187200]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=620139912]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.4392157, 1, 1, 1)

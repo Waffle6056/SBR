@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cqhfyjlhwf53y"]
+
+[ext_resource type="Script" uid="uid://df45o8jkcxd5y" path="res://snowball.gd" id="1_i8p5v"]
+[ext_resource type="Texture2D" uid="uid://cuxmxtdo2yjpk" path="res://400px-Steel_Ball_Infobox.png" id="2_bt015"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pakj4"]
+radius = 171.84296
+
+[node name="Snowball" type="CharacterBody2D" unique_id=2096384661]
+script = ExtResource("1_i8p5v")
+
+[node name="400PxSteelBallInfobox" type="Sprite2D" parent="." unique_id=511670586]
+texture = ExtResource("2_bt015")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2128354289]
+shape = SubResource("CircleShape2D_pakj4")
