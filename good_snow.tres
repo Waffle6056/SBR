@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cfnad6pdic2l5"]
+
+[ext_resource type="Shader" uid="uid://b4kvat1ny6ikl" path="res://good_snow.gdshader" id="1_h0ngi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y11qa"]
+noise_type = 3
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1v3hf"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_y11qa")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7mq33"]
+noise_type = 3
+frequency = 0.004
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_732s5"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_7mq33")
+seamless = true
+as_normal_map = true
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_h0ngi")
+shader_parameter/bumpNoise = SubResource("NoiseTexture2D_1v3hf")
+shader_parameter/textureNoise = SubResource("NoiseTexture2D_732s5")
