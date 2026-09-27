@@ -24,4 +24,5 @@ func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, 
 		queue_free()
 	
 func _exit_tree() -> void:
-	parent_generator.items_spawned -= 1;
+	if (parent_generator):
+		parent_generator.items_spawned -= 1;

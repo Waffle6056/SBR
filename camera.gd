@@ -17,6 +17,8 @@ func _ready() -> void:
 	instance = self
 	size -= target.get_circumference() * size_scaling
 
+func get_despawn_distance():
+	return Camera.instance.offset.x*3+10;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

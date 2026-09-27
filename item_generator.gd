@@ -25,7 +25,7 @@ func spawn_random_item(position: Vector3):
 	var item = get_node(item_templates[randi_range(0,item_templates.size()-1)]) as SnowPile;
 	var new_item = item.duplicate();
 	new_item.parent_generator = self;
-	new_item.distance_to_despawn = Camera.instance.offset.x*3;
+	new_item.distance_to_despawn = Camera.instance.get_despawn_distance();
 	add_child(new_item);
 	new_item.global_position = position;
 # Called every frame. 'delta' is the elapsed time since the previous frame.

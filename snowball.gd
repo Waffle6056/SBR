@@ -35,4 +35,6 @@ func _physics_process(delta: float) -> void:
 	sprite.spin += velocity.x * delta / (get_circumference() * PI) * 2 * PI
 	move_and_slide()
 	
+	if (get_circumference() > 10.0):
+		max_z_movement = 5.0;
 	global_position.z = clampf(global_position.z, -max_z_movement, max_z_movement)
