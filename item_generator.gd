@@ -25,7 +25,7 @@ func spawn_random_item(position: Vector3):
 	var item = get_node(item_templates[randi_range(0,item_templates.size()-1)]) as SnowPile;
 	var new_item = item.duplicate();
 	new_item.parent_generator = self;
-	new_item.distance_to_despawn = SnowBall.instance.get_circumference()*3;
+	new_item.distance_to_despawn = Camera.instance.offset.x*3;
 	add_child(new_item);
 	new_item.global_position = position;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,8 +44,8 @@ func _process(delta: float) -> void:
 		if (line_idx == line_segments-1 && line_velocity > 0):
 			line_velocity = -1
 	line_idx += delta * line_velocity
-	print(line_idx)
-	print(line_velocity)
+	#print(line_idx)
+	#print(line_velocity)
 	line_idx = clampf(line_idx, 0, line_segments-1);
 		
 	#while (items_spawned < item_cap):

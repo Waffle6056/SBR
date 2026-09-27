@@ -20,6 +20,7 @@ var sprite : Billboard
 func _ready() -> void:
 	instance = self;
 
+#returns diameter
 func get_circumference() -> float:
 	return global_transform.basis.get_scale().x
 

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://lcxkleg11gl4"]
+
+[ext_resource type="Script" uid="uid://jcfqd4sin7aa" path="res://endseq/fighter_jet.gd" id="1_c8u36"]
+[ext_resource type="Texture2D" uid="uid://cfuder2otocnh" path="res://assets/crosshair.png" id="1_drxl3"]
+[ext_resource type="Texture2D" uid="uid://cqnguqte7b4op" path="res://assets/snowball_face.png" id="3_54h0d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
+
+[node name="EndSequence" type="Node3D" unique_id=1440521019]
+
+[node name="FighterJet" type="CharacterBody3D" parent="." unique_id=1704777169]
+script = ExtResource("1_c8u36")
+
+[node name="Sprite3D" type="Sprite3D" parent="FighterJet" unique_id=1720788732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7997272)
+texture = ExtResource("1_drxl3")
+
+[node name="Camera3D" type="Camera3D" parent="FighterJet" unique_id=1679239928]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FighterJet" unique_id=1645363355]
+shape = SubResource("SphereShape3D_pakj4")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=52367485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2646828)
+texture = ExtResource("3_54h0d")
+
+[node name="Sprite3D2" type="Sprite3D" parent="." unique_id=1607856536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.4569736)
+texture = ExtResource("3_54h0d")

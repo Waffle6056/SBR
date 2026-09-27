@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bcndada0vs2du" path="res://item_generator.gd" id="4_ky7mi"]
 [ext_resource type="Script" uid="uid://cahjnqo3ckv6o" path="res://follow.gd" id="4_skokm"]
 [ext_resource type="PackedScene" uid="uid://csbusecjhouxu" path="res://items/snow/snowpile.tscn" id="5_skokm"]
+[ext_resource type="Script" uid="uid://50qrbkvdu0fe" path="res://cluster_spawner.gd" id="8_7wy6d"]
+[ext_resource type="PackedScene" uid="uid://27ecrccr2rmv" path="res://assets/treecluster.tscn" id="9_4ss5i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y11qa"]
 sky_top_color = Color(0.3722375, 0.71148425, 1, 1)
@@ -23,7 +25,7 @@ ambient_light_sky_contribution = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1v3hf"]
 material = ExtResource("1_iwtka")
-size = Vector2(6, 6)
+size = Vector2(20, 20)
 subdivide_width = 1000
 subdivide_depth = 1000
 
@@ -43,11 +45,11 @@ player_acceleration = 1.0
 player_max_velocity = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1553152287 node_paths=PackedStringArray("target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.8388102, 0.23248142, 0.05153802)
+transform = Transform3D(-4.371139e-08, -0.9659258, 0.258819, 0, 0.258819, 0.9659258, -1, 4.222196e-08, -1.1313338e-08, 0.97509086, 2.0729418, -0.023270488)
 near = 0.001
 script = ExtResource("3_0cd1m")
 target = NodePath("../Snowball")
-base_offset = Vector3(-0.8388102, 0.23248142, 0.05153802)
+base_offset = Vector3(0.97509086, 2.0729418, -0.023270488)
 offset_scaling = Vector3(1, 0, 0)
 size_scaling = 1.0
 metadata/_edit_group_ = true
@@ -65,7 +67,17 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 growth_amount = 0.01
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1475418865]
-transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 1.0000002, 4.930654e-09, -1, 0, -4.8704987e-08, 0.946, -0.15, 2)
+transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 1.0000002, 4.930654e-09, -1, 0, -4.8704987e-08, 0.946, -0.15, 0)
 mesh = SubResource("PlaneMesh_1v3hf")
 script = ExtResource("4_skokm")
-offset = Vector3(0.37966162, -0.31537777, -1.587541)
+offset = Vector3(0.946, -0.15, 0)
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1402225707 node_paths=PackedStringArray("item")]
+script = ExtResource("8_7wy6d")
+item = NodePath("Node3D/treecluster")
+
+[node name="Node3D" type="Node3D" parent="Node3D2" unique_id=1655467909]
+process_mode = 4
+
+[node name="treecluster" parent="Node3D2/Node3D" unique_id=1555282527 instance=ExtResource("9_4ss5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.437, 0.096, -1.5)

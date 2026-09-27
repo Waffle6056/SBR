@@ -20,6 +20,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	offset = base_offset + Vector3(0.5 - 0.5 / target.velocity.x,0,0);
+	offset = base_offset + Vector3(SnowBall.instance.get_circumference() - SnowBall.instance.get_circumference() / target.velocity.x,
+	SnowBall.instance.get_circumference(),0);
 	global_position = target.global_position * Vector3(1,0,0) + offset
 	size = 1 + target.get_circumference() * size_scaling

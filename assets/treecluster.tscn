@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://27ecrccr2rmv"]
+
+[ext_resource type="Script" uid="uid://bbtdopyns5sp0" path="res://assets/treecluster.gd" id="1_mtovw"]
+[ext_resource type="Texture2D" uid="uid://bcow4n35g1ft7" path="res://assets/tree.png" id="2_hspuw"]
+
+[node name="treecluster" type="Node3D" unique_id=1555282527 node_paths=PackedStringArray("tree")]
+script = ExtResource("1_mtovw")
+tree = NodePath("Sprite3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1163726990]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0)
+billboard = 1
+texture_filter = 4
+texture = ExtResource("2_hspuw")
