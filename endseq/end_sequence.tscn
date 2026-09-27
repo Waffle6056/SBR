@@ -7,7 +7,7 @@
 [ext_resource type="Material" uid="uid://cfnad6pdic2l5" path="res://good_snow.tres" id="4_7jxd2"]
 [ext_resource type="Script" uid="uid://bbtdopyns5sp0" path="res://assets/treecluster.gd" id="7_ibp07"]
 [ext_resource type="Texture2D" uid="uid://jfkd4j045xux" path="res://items/snow/OIP.webp" id="8_v08lg"]
-[ext_resource type="Script" uid="uid://bq547hhl53ke3" path="res://endseq/sprite_3d.gd" id="9_quc2t"]
+[ext_resource type="Script" uid="uid://cdfx7iaydiqt2" path="res://endseq/explode.gd" id="9_ibp07"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
 
@@ -16,6 +16,9 @@ material = ExtResource("4_7jxd2")
 size = Vector2(100, 100)
 subdivide_width = 1000
 subdivide_depth = 1000
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sxlej"]
+radius = 3.0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7jxd2"]
 sky_top_color = Color(0.3722375, 0.71148425, 1, 1)
@@ -67,17 +70,23 @@ script = ExtResource("3_xaopx")
 [node name="treecluster" type="Node3D" parent="." unique_id=1555282527 node_paths=PackedStringArray("tree")]
 transform = Transform3D(1, 3.5527137e-15, 0, -4.440892e-16, 1, -7.455168e-17, -3.5527137e-15, 0, 1, -0.43700004, 0.096, -1.4999999)
 script = ExtResource("7_ibp07")
-tree = NodePath("Sprite3D")
+tree = NodePath("Area3D")
 min_amt = 100
 max_amt = 200
 spawn_range = 5.0
 
-[node name="Sprite3D" type="Sprite3D" parent="treecluster" unique_id=1163726990]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="Area3D" type="Area3D" parent="treecluster" unique_id=860576924]
+transform = Transform3D(0.1, 0, 0, -2.6486077e-32, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("9_ibp07")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="treecluster/Area3D" unique_id=1126617224]
+shape = SubResource("SphereShape3D_sxlej")
+
+[node name="Sprite3D" type="Sprite3D" parent="treecluster/Area3D" unique_id=1163726990]
+transform = Transform3D(1, 0, 0, -2.6486076e-31, 1, 0, 0, 0, 1, 0, 0, 0)
 billboard = 1
 texture_filter = 4
 texture = ExtResource("8_v08lg")
-script = ExtResource("9_quc2t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1646275475]
 transform = Transform3D(0.3423445, 0.66547066, -0.6632866, -0.22232454, 0.74327016, 0.6309685, 0.9128921, -0.06854384, 0.40240526, 0, 0.7251864, 1.175557)
@@ -85,3 +94,5 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=71794536]
 environment = SubResource("Environment_xaopx")
+
+[connection signal="body_shape_entered" from="treecluster/Area3D" to="treecluster/Area3D" method="_on_body_shape_entered"]

@@ -1,7 +1,7 @@
 extends Node3D
 
 @export
-var tree : Sprite3D
+var tree : Node3D
 @export 
 var min_amt = 3
 @export 

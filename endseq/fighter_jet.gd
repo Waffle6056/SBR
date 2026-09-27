@@ -7,6 +7,7 @@ var rotate_speed : float = 1;
 var rotation_speed : float = 1;
 var dead_zone_scale : float = 50;
 var dead_zone_return_speed : float = .5;
+var explosion_radius : float = 10;
 var cursor_pos = Vector2.ZERO
 @export
 var cursor : Sprite3D
@@ -41,6 +42,10 @@ func _input(event: InputEvent) -> void:
 		target = Vector2(target.x, -target.y);
 		#cursor_pos = cursor_pos.lerp(target,.5);
 		cursor_pos += target
+	if (event.is_action("decrease_speed")):
+		speed -= 1;
+	if (event.is_action("increase_speed")):
+		speed += 1;
 	
 	
 func _physics_process(delta: float) -> void:
