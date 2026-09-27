@@ -7,6 +7,14 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7fc2"]
+albedo_color = Color(0.7764706, 1, 1, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_k0byn"]
+material = SubResource("StandardMaterial3D_k7fc2")
+size = Vector2(0.05, 0.05)
+
 [sub_resource type="SphereMesh" id="SphereMesh_upwgd"]
 material = ExtResource("4_4plmt")
 rings = 64
@@ -21,6 +29,26 @@ sprite = NodePath("Sprite3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=138777586]
 shape = SubResource("SphereShape3D_pakj4")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=1274907545]
+transform = Transform3D(0.34202012, 0, 0.9396925, 0, 0.9999999, 0, -0.9396925, 0, 0.34202012, -0.26313612, -0.3511569, -0.2)
+amount = 100
+mesh = SubResource("QuadMesh_k0byn")
+direction = Vector3(0, 1, -1)
+spread = 15.1
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="." unique_id=668274169]
+transform = Transform3D(-0.3420201, 0, 0.9396925, 0, 0.9999999, 0, -0.9396925, 0, -0.3420201, -0.26313612, -0.3511569, 0.2)
+amount = 100
+mesh = SubResource("QuadMesh_k0byn")
+direction = Vector3(0, 1, -1)
+spread = 15.1
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1235456663]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
