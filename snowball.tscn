@@ -2,15 +2,23 @@
 
 [ext_resource type="Script" uid="uid://df45o8jkcxd5y" path="res://snowball.gd" id="1_i8p5v"]
 [ext_resource type="Texture2D" uid="uid://cuxmxtdo2yjpk" path="res://400px-Steel_Ball_Infobox.png" id="2_bt015"]
+[ext_resource type="Script" uid="uid://d2wxuy2a7g3cp" path="res://billboard2.gd" id="3_bt015"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pakj4"]
-radius = 171.84296
+[sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
 
-[node name="Snowball" type="CharacterBody2D" unique_id=2096384661]
+[node name="Snowball" type="CharacterBody3D" unique_id=946364679 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_i8p5v")
+dash_strength = 20.0
+downward_acceleration = 1.0
+maximum_downward_velocity = 50.0
+player_acceleration = 50.0
+sprite = NodePath("Sprite3D")
 
-[node name="400PxSteelBallInfobox" type="Sprite2D" parent="." unique_id=511670586]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=138777586]
+shape = SubResource("SphereShape3D_pakj4")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1235456663]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 texture = ExtResource("2_bt015")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2128354289]
-shape = SubResource("CircleShape2D_pakj4")
+script = ExtResource("3_bt015")
+spin = 15.0

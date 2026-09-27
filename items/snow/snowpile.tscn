@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://csbusecjhouxu"]
+
+[ext_resource type="Script" uid="uid://dpe6sh26mqduj" path="res://items/snow/snowpile.gd" id="1_5r57a"]
+[ext_resource type="Texture2D" uid="uid://jfkd4j045xux" path="res://items/snow/OIP.webp" id="2_t08kv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
+
+[node name="Snowpile" type="Area3D" unique_id=124483833]
+script = ExtResource("1_5r57a")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=654548126]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+billboard = 1
+texture = ExtResource("2_t08kv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1180406675]
+shape = SubResource("SphereShape3D_pakj4")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

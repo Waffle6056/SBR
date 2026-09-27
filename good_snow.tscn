@@ -1,50 +1,11 @@
 [gd_scene format=3 uid="uid://bgqnhswut3qb8"]
 
 [ext_resource type="Material" uid="uid://cfnad6pdic2l5" path="res://good_snow.tres" id="1_iwtka"]
-[ext_resource type="Texture2D" uid="uid://cuxmxtdo2yjpk" path="res://400px-Steel_Ball_Infobox.png" id="2_iwtka"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_1v3hf"]
-material = ExtResource("1_iwtka")
-size = Vector2(2, 6)
-subdivide_width = 1000
-subdivide_depth = 1000
-
-[sub_resource type="Animation" id="Animation_iwtka"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.5707964, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_0ko88"]
-resource_name = "spin"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 12.566371)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0cd1m"]
-_data = {
-&"RESET": SubResource("Animation_iwtka"),
-&"spin": SubResource("Animation_0ko88")
-}
+[ext_resource type="Script" uid="uid://bh0q11lqqp26" path="res://camera.gd" id="3_0cd1m"]
+[ext_resource type="PackedScene" uid="uid://cqhfyjlhwf53y" path="res://snowball.tscn" id="3_0ko88"]
+[ext_resource type="Script" uid="uid://bcndada0vs2du" path="res://item_generator.gd" id="4_ky7mi"]
+[ext_resource type="Script" uid="uid://cahjnqo3ckv6o" path="res://follow.gd" id="4_skokm"]
+[ext_resource type="PackedScene" uid="uid://csbusecjhouxu" path="res://items/snow/snowpile.tscn" id="5_skokm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y11qa"]
 sky_top_color = Color(0.3722375, 0.71148425, 1, 1)
@@ -56,29 +17,56 @@ sky_material = SubResource("ProceduralSkyMaterial_y11qa")
 [sub_resource type="Environment" id="Environment_1v3hf"]
 background_mode = 2
 sky = SubResource("Sky_732s5")
-sky_rotation = Vector3(0, 0, -0.37175512)
+sky_rotation = Vector3(-0.34906584, 0, 0)
 ambient_light_color = Color(0.4959017, 0.495902, 0.49590188, 1)
 ambient_light_sky_contribution = 0.0
 
-[node name="Node3D" type="Node3D" unique_id=393065598]
+[sub_resource type="PlaneMesh" id="PlaneMesh_1v3hf"]
+material = ExtResource("1_iwtka")
+size = Vector2(6, 6)
+subdivide_width = 1000
+subdivide_depth = 1000
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1475418865]
-transform = Transform3D(0.9999999, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000002, 0, 0, 1.4650384)
-mesh = SubResource("PlaneMesh_1v3hf")
+[node name="Node3D" type="Node3D" unique_id=393065598]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1708287670]
 transform = Transform3D(0.95805883, 0.28657144, -1.3814825e-09, -0.22232457, 0.7432702, 0.63096845, 0.18081754, -0.60450494, 0.7758086, 0, 0.7251864, 1.175557)
 shadow_enabled = true
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=302518296]
-transform = Transform3D(-4.371138e-09, 0, 0.1, 0, 0.09999998, 0, -0.09999999, 0, -4.371139e-09, -0.026619673, 0.18312496, 0.027673185)
-texture = ExtResource("2_iwtka")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite3D" unique_id=343637489]
-libraries/ = SubResource("AnimationLibrary_0cd1m")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=918083264]
-transform = Transform3D(-0.12754121, 0.1308979, -0.98315763, 0.1951908, 0.9751807, 0.10451452, 0.972437, -0.17857341, -0.1499258, -1.144, 0.634, 0.6456481)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067494126]
 environment = SubResource("Environment_1v3hf")
+
+[node name="Snowball" parent="." unique_id=946364679 instance=ExtResource("3_0ko88")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+downward_acceleration = 0.2
+player_acceleration = 1.0
+player_max_velocity = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1553152287 node_paths=PackedStringArray("target")]
+transform = Transform3D(0.9659259, -0.2588191, 1.6166014e-08, 0.24207295, 0.9034284, 0.35386133, -0.09158608, -0.3418038, 0.9352979, 0.41577142, 2.4353127, 5.817548)
+projection = 1
+near = 0.001
+script = ExtResource("3_0cd1m")
+target = NodePath("../Snowball")
+base_offset = Vector3(0.41577142, 2.4353127, 5.817548)
+offset_scaling = Vector3(1, 0, 0)
+size_scaling = 1.0
+metadata/_edit_group_ = true
+
+[node name="Node3D" type="Node3D" parent="." unique_id=964407958]
+script = ExtResource("4_ky7mi")
+item_templates = [NodePath("Node3D/Snowpile")]
+
+[node name="Node3D" type="Node3D" parent="Node3D" unique_id=1845616476]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.625552)
+
+[node name="Snowpile" parent="Node3D/Node3D" unique_id=124483833 instance=ExtResource("5_skokm")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+growth_amount = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1475418865]
+transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 1.0000002, 4.930654e-09, -1, 0, -4.8704987e-08, 0.946, -0.15, 2)
+mesh = SubResource("PlaneMesh_1v3hf")
+script = ExtResource("4_skokm")
+offset = Vector3(0.37966162, -0.31537777, -1.587541)
