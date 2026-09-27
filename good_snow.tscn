@@ -30,7 +30,7 @@ subdivide_depth = 1000
 [node name="Node3D" type="Node3D" unique_id=393065598]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1708287670]
-transform = Transform3D(0.95805883, 0.28657144, -1.3814825e-09, -0.22232457, 0.7432702, 0.63096845, 0.18081754, -0.60450494, 0.7758086, 0, 0.7251864, 1.175557)
+transform = Transform3D(0.3423445, 0.66547066, -0.6632866, -0.22232454, 0.74327016, 0.6309685, 0.9128921, -0.06854384, 0.40240526, 0, 0.7251864, 1.175557)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067494126]
@@ -43,12 +43,11 @@ player_acceleration = 1.0
 player_max_velocity = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1553152287 node_paths=PackedStringArray("target")]
-transform = Transform3D(0.9659259, -0.2588191, 1.6166014e-08, 0.24207295, 0.9034284, 0.35386133, -0.09158608, -0.3418038, 0.9352979, 0.41577142, 2.4353127, 5.817548)
-projection = 1
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.8388102, 0.23248142, 0.05153802)
 near = 0.001
 script = ExtResource("3_0cd1m")
 target = NodePath("../Snowball")
-base_offset = Vector3(0.41577142, 2.4353127, 5.817548)
+base_offset = Vector3(-0.8388102, 0.23248142, 0.05153802)
 offset_scaling = Vector3(1, 0, 0)
 size_scaling = 1.0
 metadata/_edit_group_ = true

@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://rfac4tavpe53"]
+
+[sub_resource type="Shader" id="Shader_0bxc1"]
+code = "shader_type spatial;
+
+
+uniform sampler2D bumpNoise;
+uniform sampler2D textureNoise;
+varying vec4 world_position;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+	world_position = (MODEL_MATRIX * vec4(VERTEX, 1.0));
+	VERTEX += 0.1 * NORMAL * texture(bumpNoise, UV).r;
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	float n = texture(textureNoise, UV).r + 0.2;
+	ALBEDO = vec3(1.0 * n, 1.0 * n, 1.2 * n);
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rf10e"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4du4g"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_rf10e")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pebkm"]
+noise_type = 3
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_40sue"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_pebkm")
+seamless = true
+as_normal_map = true
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_0bxc1")
+shader_parameter/bumpNoise = SubResource("NoiseTexture2D_4du4g")
+shader_parameter/textureNoise = SubResource("NoiseTexture2D_40sue")

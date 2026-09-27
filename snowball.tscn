@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://cqhfyjlhwf53y"]
 
 [ext_resource type="Script" uid="uid://df45o8jkcxd5y" path="res://snowball.gd" id="1_i8p5v"]
-[ext_resource type="Texture2D" uid="uid://cuxmxtdo2yjpk" path="res://400px-Steel_Ball_Infobox.png" id="2_bt015"]
+[ext_resource type="Texture2D" uid="uid://cqnguqte7b4op" path="res://assets/snowball_face.png" id="2_bt015"]
 [ext_resource type="Script" uid="uid://d2wxuy2a7g3cp" path="res://billboard2.gd" id="3_bt015"]
+[ext_resource type="Material" uid="uid://rfac4tavpe53" path="res://good_snow_ball.tres" id="4_4plmt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_upwgd"]
+material = ExtResource("4_4plmt")
+rings = 64
 
 [node name="Snowball" type="CharacterBody3D" unique_id=946364679 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_i8p5v")
@@ -19,6 +24,12 @@ shape = SubResource("SphereShape3D_pakj4")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1235456663]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+pixel_size = 0.11
+texture_filter = 0
 texture = ExtResource("2_bt015")
 script = ExtResource("3_bt015")
 spin = 15.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D" unique_id=1899376233]
+transform = Transform3D(3.333333, 0, 0, 0, 3.333333, 0, 0, 0, 3.333333, 0, 0, 0)
+mesh = SubResource("SphereMesh_upwgd")
