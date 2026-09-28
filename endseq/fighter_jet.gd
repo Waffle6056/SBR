@@ -15,11 +15,14 @@ var cursor : Sprite3D
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	instance = self
-
+func get_explosion_radius() -> float:
+	return explosion_radius;
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#print(global_position)
+
 	var normal_cursor_pos = cursor_pos.normalized();
 	var axis = Vector3.FORWARD.cross(Vector3(normal_cursor_pos.x,normal_cursor_pos.y,0));
 	if (axis.length() == 1):

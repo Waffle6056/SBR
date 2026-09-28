@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cx4ra7sfm0yvg"]
+
+[ext_resource type="Script" uid="uid://bcndada0vs2du" path="res://item_generator.gd" id="1_2ymry"]
+[ext_resource type="PackedScene" uid="uid://csbusecjhouxu" path="res://items/snow/snowpile.tscn" id="2_wqj0b"]
+[ext_resource type="Material" uid="uid://cfnad6pdic2l5" path="res://good_snow.tres" id="3_hinkf"]
+[ext_resource type="Script" uid="uid://cahjnqo3ckv6o" path="res://follow.gd" id="4_scpoc"]
+[ext_resource type="Script" uid="uid://50qrbkvdu0fe" path="res://cluster_spawner.gd" id="5_d1uqq"]
+[ext_resource type="PackedScene" uid="uid://27ecrccr2rmv" path="res://assets/treecluster.tscn" id="6_id5kq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8n2d5"]
+material = ExtResource("3_hinkf")
+size = Vector2(20, 20)
+subdivide_width = 1000
+subdivide_depth = 1000
+
+[node name="collection_sequence" type="Node3D" unique_id=2004923074]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1391981962]
+script = ExtResource("1_2ymry")
+item_templates = [NodePath("Node3D/Snowpile")]
+
+[node name="Node3D" type="Node3D" parent="Node3D" unique_id=827655269]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.625552)
+
+[node name="Snowpile" parent="Node3D/Node3D" unique_id=124483833 instance=ExtResource("2_wqj0b")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+growth_amount = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1360507515]
+transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 1.0000002, 4.930654e-09, -1, 0, -4.8704987e-08, 0.946, -0.15, 0)
+mesh = SubResource("PlaneMesh_8n2d5")
+script = ExtResource("4_scpoc")
+offset = Vector3(0.946, -0.15, 0)
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1899366200 node_paths=PackedStringArray("item")]
+script = ExtResource("5_d1uqq")
+item = NodePath("Node3D/treecluster")
+
+[node name="Node3D" type="Node3D" parent="Node3D2" unique_id=291921068]
+process_mode = 4
+
+[node name="treecluster" parent="Node3D2/Node3D" unique_id=1555282527 instance=ExtResource("6_id5kq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.437, 0.096, -1.5)

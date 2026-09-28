@@ -1,15 +1,10 @@
 [gd_scene format=3 uid="uid://lcxkleg11gl4"]
 
-[ext_resource type="Script" uid="uid://jcfqd4sin7aa" path="res://endseq/fighter_jet.gd" id="1_c8u36"]
-[ext_resource type="Texture2D" uid="uid://cfuder2otocnh" path="res://assets/crosshair.png" id="1_drxl3"]
+[ext_resource type="Script" uid="uid://c7xanm7fglc77" path="res://endseq/sequence.gd" id="1_ibp07"]
 [ext_resource type="Texture2D" uid="uid://cqnguqte7b4op" path="res://assets/snowball_face.png" id="3_54h0d"]
 [ext_resource type="Script" uid="uid://d2pkih41m5853" path="res://endseq/jetfollow.gd" id="3_xaopx"]
 [ext_resource type="Material" uid="uid://cfnad6pdic2l5" path="res://good_snow.tres" id="4_7jxd2"]
-[ext_resource type="Script" uid="uid://bbtdopyns5sp0" path="res://assets/treecluster.gd" id="7_ibp07"]
-[ext_resource type="Texture2D" uid="uid://jfkd4j045xux" path="res://items/snow/OIP.webp" id="8_v08lg"]
-[ext_resource type="Script" uid="uid://cdfx7iaydiqt2" path="res://endseq/explode.gd" id="9_ibp07"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_pakj4"]
+[ext_resource type="Script" uid="uid://d4m3i5liiw1wq" path="res://endseq/swap_trigger.gd" id="7_v08lg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_quc2t"]
 material = ExtResource("4_7jxd2")
@@ -17,42 +12,10 @@ size = Vector2(100, 100)
 subdivide_width = 1000
 subdivide_depth = 1000
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_sxlej"]
-radius = 3.0
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7jxd2"]
-sky_top_color = Color(0.3722375, 0.71148425, 1, 1)
-sky_horizon_color = Color(0.9001261, 0.90012604, 0.90012604, 1)
-
-[sub_resource type="Sky" id="Sky_732s5"]
-sky_material = SubResource("ProceduralSkyMaterial_7jxd2")
-
-[sub_resource type="Environment" id="Environment_xaopx"]
-background_mode = 2
-sky = SubResource("Sky_732s5")
-sky_rotation = Vector3(-0.34906584, 0, 0)
-ambient_light_color = Color(0.4959017, 0.495902, 0.49590188, 1)
-ambient_light_sky_contribution = 0.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_pakj4"]
 
 [node name="EndSequence" type="Node3D" unique_id=1440521019]
-
-[node name="FighterJet" type="CharacterBody3D" parent="." unique_id=1704777169 node_paths=PackedStringArray("cursor")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -46.977005, 15.794745, -2.0534299e-06)
-script = ExtResource("1_c8u36")
-cursor = NodePath("Sprite3D")
-
-[node name="Sprite3D" type="Sprite3D" parent="FighterJet" unique_id=1720788732]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7997272)
-texture = ExtResource("1_drxl3")
-
-[node name="Sprite3D2" type="Sprite3D" parent="FighterJet" unique_id=1395340192]
-transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 1, 0, 0, -1.7997272)
-texture = ExtResource("1_drxl3")
-
-[node name="Camera3D" type="Camera3D" parent="FighterJet" unique_id=1679239928]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FighterJet" unique_id=1645363355]
-shape = SubResource("SphereShape3D_pakj4")
+script = ExtResource("1_ibp07")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=52367485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2646828)
@@ -67,32 +30,10 @@ transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 
 mesh = SubResource("PlaneMesh_quc2t")
 script = ExtResource("3_xaopx")
 
-[node name="treecluster" type="Node3D" parent="." unique_id=1555282527 node_paths=PackedStringArray("tree")]
-transform = Transform3D(1, 3.5527137e-15, 0, -4.440892e-16, 1, -7.455168e-17, -3.5527137e-15, 0, 1, -0.43700004, 0.096, -1.4999999)
-script = ExtResource("7_ibp07")
-tree = NodePath("Area3D")
-min_amt = 100
-max_amt = 200
-spawn_range = 5.0
+[node name="SwapTrigger" type="Area3D" parent="MeshInstance3D" unique_id=1494135930]
+script = ExtResource("7_v08lg")
 
-[node name="Area3D" type="Area3D" parent="treecluster" unique_id=860576924]
-transform = Transform3D(0.1, 0, 0, -2.6486077e-32, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-script = ExtResource("9_ibp07")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/SwapTrigger" unique_id=1188591874]
+shape = SubResource("BoxShape3D_pakj4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="treecluster/Area3D" unique_id=1126617224]
-shape = SubResource("SphereShape3D_sxlej")
-
-[node name="Sprite3D" type="Sprite3D" parent="treecluster/Area3D" unique_id=1163726990]
-transform = Transform3D(1, 0, 0, -2.6486076e-31, 1, 0, 0, 0, 1, 0, 0, 0)
-billboard = 1
-texture_filter = 4
-texture = ExtResource("8_v08lg")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1646275475]
-transform = Transform3D(0.3423445, 0.66547066, -0.6632866, -0.22232454, 0.74327016, 0.6309685, 0.9128921, -0.06854384, 0.40240526, 0, 0.7251864, 1.175557)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=71794536]
-environment = SubResource("Environment_xaopx")
-
-[connection signal="body_shape_entered" from="treecluster/Area3D" to="treecluster/Area3D" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="MeshInstance3D/SwapTrigger" to="MeshInstance3D/SwapTrigger" method="_on_body_shape_entered"]

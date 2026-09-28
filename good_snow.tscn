@@ -1,31 +1,41 @@
 [gd_scene format=3 uid="uid://bgqnhswut3qb8"]
 
 [ext_resource type="Material" uid="uid://cfnad6pdic2l5" path="res://good_snow.tres" id="1_iwtka"]
+[ext_resource type="Script" uid="uid://b4pe0yov8cm2" path="res://scene_manager.gd" id="1_skokm"]
 [ext_resource type="Script" uid="uid://bh0q11lqqp26" path="res://camera.gd" id="3_0cd1m"]
 [ext_resource type="PackedScene" uid="uid://cqhfyjlhwf53y" path="res://snowball.tscn" id="3_0ko88"]
-[ext_resource type="Script" uid="uid://bcndada0vs2du" path="res://item_generator.gd" id="4_ky7mi"]
-[ext_resource type="Script" uid="uid://cahjnqo3ckv6o" path="res://follow.gd" id="4_skokm"]
-[ext_resource type="PackedScene" uid="uid://csbusecjhouxu" path="res://items/snow/snowpile.tscn" id="5_skokm"]
-[ext_resource type="Script" uid="uid://50qrbkvdu0fe" path="res://cluster_spawner.gd" id="8_7wy6d"]
-[ext_resource type="PackedScene" uid="uid://27ecrccr2rmv" path="res://assets/treecluster.tscn" id="9_4ss5i"]
+[ext_resource type="PackedScene" uid="uid://cx4ra7sfm0yvg" path="res://collectionseq/collection_sequence.tscn" id="3_ky7mi"]
+[ext_resource type="Script" uid="uid://c7xanm7fglc77" path="res://endseq/sequence.gd" id="3_skokm"]
+[ext_resource type="PackedScene" uid="uid://lcxkleg11gl4" path="res://endseq/end_sequence.tscn" id="4_0cd1m"]
+[ext_resource type="Script" uid="uid://2o8jp85uvg56" path="res://endseq/kojimacluster.gd" id="7_4ss5i"]
+[ext_resource type="Script" uid="uid://cdfx7iaydiqt2" path="res://endseq/explode.gd" id="8_ajcpw"]
+[ext_resource type="Texture2D" uid="uid://jfkd4j045xux" path="res://items/snow/OIP.webp" id="9_5rqdv"]
+[ext_resource type="Script" uid="uid://jcfqd4sin7aa" path="res://endseq/fighter_jet.gd" id="10_5rqdv"]
+[ext_resource type="Script" uid="uid://cf7ok5isj4e2" path="res://end_end_sequence.gd" id="10_uurb1"]
+[ext_resource type="Texture2D" uid="uid://cfuder2otocnh" path="res://assets/crosshair.png" id="11_uurb1"]
+[ext_resource type="Script" uid="uid://d2pkih41m5853" path="res://endseq/jetfollow.gd" id="14_ur6ry"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y11qa"]
 sky_top_color = Color(0.3722375, 0.71148425, 1, 1)
 sky_horizon_color = Color(0.9001261, 0.90012604, 0.90012604, 1)
 
-[sub_resource type="Sky" id="Sky_732s5"]
+[sub_resource type="Sky" id="Sky_7wy6d"]
 sky_material = SubResource("ProceduralSkyMaterial_y11qa")
 
 [sub_resource type="Environment" id="Environment_1v3hf"]
 background_mode = 2
-sky = SubResource("Sky_732s5")
-sky_rotation = Vector3(-0.34906584, 0, 0)
+sky = SubResource("Sky_7wy6d")
 ambient_light_color = Color(0.4959017, 0.495902, 0.49590188, 1)
 ambient_light_sky_contribution = 0.0
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_1v3hf"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ur6ry"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1q1ok"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1q1ok"]
 material = ExtResource("1_iwtka")
-size = Vector2(20, 20)
+size = Vector2(100, 100)
 subdivide_width = 1000
 subdivide_depth = 1000
 
@@ -38,14 +48,16 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067494126]
 environment = SubResource("Environment_1v3hf")
 
-[node name="Snowball" parent="." unique_id=946364679 instance=ExtResource("3_0ko88")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-downward_acceleration = 0.2
-player_acceleration = 1.0
-player_max_velocity = 2.0
+[node name="Node3D" type="Node3D" parent="." unique_id=814358659]
+script = ExtResource("1_skokm")
+scene_sequence = [NodePath("CollectionSequence"), NodePath("EndSequence"), NodePath("EndEndSequence")]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1553152287 node_paths=PackedStringArray("target")]
-transform = Transform3D(-4.371139e-08, -0.9659258, 0.258819, 0, 0.258819, 0.9659258, -1, 4.222196e-08, -1.1313338e-08, 0.97509086, 2.0729418, -0.023270488)
+[node name="CollectionSequence" parent="Node3D" unique_id=2004923074 node_paths=PackedStringArray("cam") instance=ExtResource("3_ky7mi")]
+script = ExtResource("3_skokm")
+cam = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/CollectionSequence" unique_id=1553152287 node_paths=PackedStringArray("target")]
+transform = Transform3D(-4.371139e-08, -0.9659259, 0.25881904, 0, 0.25881904, 0.9659259, -1, 4.2221963e-08, -1.13133405e-08, 0.97509086, 2.0729418, -0.023270488)
 near = 0.001
 script = ExtResource("3_0cd1m")
 target = NodePath("../Snowball")
@@ -54,32 +66,71 @@ offset_scaling = Vector3(1, 0, 0)
 size_scaling = 1.0
 metadata/_edit_group_ = true
 
-[node name="Node3D" type="Node3D" parent="." unique_id=964407958]
-script = ExtResource("4_ky7mi")
-item_templates = [NodePath("Node3D/Snowpile")]
+[node name="Snowball" parent="Node3D/CollectionSequence" unique_id=946364679 instance=ExtResource("3_0ko88")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+downward_acceleration = 0.2
+maximum_downward_velocity = 12.0
+player_acceleration = 1.0
+player_max_velocity = 2.0
 
-[node name="Node3D" type="Node3D" parent="Node3D" unique_id=1845616476]
+[node name="EndSequence" parent="Node3D" unique_id=1440521019 node_paths=PackedStringArray("cam") instance=ExtResource("4_0cd1m")]
 process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.625552)
+visible = false
+cam = NodePath("FighterJet2/Camera3D")
 
-[node name="Snowpile" parent="Node3D/Node3D" unique_id=124483833 instance=ExtResource("5_skokm")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-growth_amount = 0.01
+[node name="treecluster2" type="Node3D" parent="Node3D/EndSequence" unique_id=1320280054 node_paths=PackedStringArray("tree")]
+transform = Transform3D(1, 3.5527137e-15, 0, -4.440892e-16, 1, -7.455168e-17, -3.5527137e-15, 0, 1, -0.43700004, 0.096, -1.4999999)
+script = ExtResource("7_4ss5i")
+tree = NodePath("Area3D")
+min_amt = 300
+max_amt = 300
+spawn_range = 15.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1475418865]
+[node name="Area3D" type="Area3D" parent="Node3D/EndSequence/treecluster2" unique_id=486517971]
+transform = Transform3D(0.1, 0, 0, -2.6486077e-32, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("8_ajcpw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/EndSequence/treecluster2/Area3D" unique_id=436246193]
+shape = SubResource("SphereShape3D_ur6ry")
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/EndSequence/treecluster2/Area3D" unique_id=1111106248]
+transform = Transform3D(1, 0, 0, -2.6486076e-31, 1, 0, 0, 0, 1, 0, 0, 0)
+billboard = 1
+texture_filter = 4
+texture = ExtResource("9_5rqdv")
+
+[node name="FighterJet2" type="CharacterBody3D" parent="Node3D/EndSequence" unique_id=15030694 node_paths=PackedStringArray("cursor")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -46.977005, 15.794745, -2.0534299e-06)
+script = ExtResource("10_5rqdv")
+cursor = NodePath("Sprite3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/EndSequence/FighterJet2" unique_id=488693981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7997272)
+texture = ExtResource("11_uurb1")
+
+[node name="Sprite3D2" type="Sprite3D" parent="Node3D/EndSequence/FighterJet2" unique_id=540772901]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 1, 0, 0, -1.7997272)
+texture = ExtResource("11_uurb1")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/EndSequence/FighterJet2" unique_id=1446932975]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/EndSequence/FighterJet2" unique_id=716548765]
+shape = SubResource("SphereShape3D_1q1ok")
+
+[node name="EndEndSequence" type="Node3D" parent="Node3D" unique_id=1757922852 node_paths=PackedStringArray("Ball", "KojimaCluster", "FighterJet", "cam")]
+visible = false
+script = ExtResource("10_uurb1")
+Ball = NodePath("../CollectionSequence/Snowball")
+KojimaCluster = NodePath("../EndSequence/treecluster2")
+FighterJet = NodePath("../EndSequence/FighterJet2")
+cam = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/EndEndSequence" unique_id=681201151]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/EndEndSequence" unique_id=1137272469]
 transform = Transform3D(-1.512004e-08, 3.5522852e-08, 1.0000002, 2.9802322e-08, 1.0000002, 4.930654e-09, -1, 0, -4.8704987e-08, 0.946, -0.15, 0)
-mesh = SubResource("PlaneMesh_1v3hf")
-script = ExtResource("4_skokm")
-offset = Vector3(0.946, -0.15, 0)
+mesh = SubResource("PlaneMesh_1q1ok")
+script = ExtResource("14_ur6ry")
 
-[node name="Node3D2" type="Node3D" parent="." unique_id=1402225707 node_paths=PackedStringArray("item")]
-script = ExtResource("8_7wy6d")
-item = NodePath("Node3D/treecluster")
-
-[node name="Node3D" type="Node3D" parent="Node3D2" unique_id=1655467909]
-process_mode = 4
-
-[node name="treecluster" parent="Node3D2/Node3D" unique_id=1555282527 instance=ExtResource("9_4ss5i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.437, 0.096, -1.5)
-
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1410728777]
+[connection signal="body_shape_entered" from="Node3D/EndSequence/treecluster2/Area3D" to="Node3D/EndSequence/treecluster2/Area3D" method="_on_body_shape_entered"]
